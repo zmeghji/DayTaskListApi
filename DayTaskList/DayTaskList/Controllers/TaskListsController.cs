@@ -31,7 +31,11 @@ namespace DayTaskList.Controllers
             TaskListApiService = taskListApiService;
         }
 
-        
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="id">Id of the task list to return</param>
+        /// <returns>A Task List Object</returns>
         [Route("{id}")]
         [HttpGet]
         public ActionResult Get(int id)

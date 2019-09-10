@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
 using AutoMapper;
 using DayTaskList.Configuration;
@@ -15,6 +17,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using Microsoft.OpenApi.Models;
 
 namespace DayTaskList
 {
@@ -47,6 +50,18 @@ namespace DayTaskList
                 ).SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
             new ApiDependencyInjectionService().RegisterDependencies(services);
+
+            //results in swagger spec being available at https://localhost:44324/swagger/OpenAPISpec/swagger.json
+            services.AddSwaggerGen(options =>
+            {
+                options.SwaggerDoc("OpenAPISpec", new OpenApiInfo
+                {
+                    Title = "Task List API",
+                    Version = "1"
+                });
+
+                options.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, "DayTaskList.xml"), true);
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -63,6 +78,12 @@ namespace DayTaskList
             }
 
             app.UseHttpsRedirection();
+            app.UseSwagger();
+            app.UseSwaggerUI(options =>
+            {
+                options.SwaggerEndpoint("/swagger/OpenAPISpec/swagger.json", "Task List API");
+                options.RoutePrefix = "";
+            });
             app.UseMvc();
         }
     }
