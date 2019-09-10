@@ -57,7 +57,16 @@ namespace DayTaskList
                 options.SwaggerDoc("OpenAPISpec", new OpenApiInfo
                 {
                     Title = "Task List API",
-                    Version = "1"
+                    Version = "1",
+                    Description="Add Description info here",
+                    Contact = new OpenApiContact
+                    {
+                        Name ="Name Here",
+                        Email ="Email Here"
+                    },
+                    License = new OpenApiLicense { Name = "MIT License"}
+                    //,TermsOfService= ""
+
                 });
 
                 options.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, "DayTaskList.xml"), true);

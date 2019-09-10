@@ -11,5 +11,15 @@
             <param name="id">Id of the task list to return</param>
             <returns>A Task List Object</returns>
         </member>
+        <member name="T:DayTaskList.Models.TaskListApiModel">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:DayTaskList.Models.TaskListApiModel.Id">
+            <summary>
+            Represents Unique ID of the Task List
+            </summary>
+        </member>
     </members>
 </doc>
